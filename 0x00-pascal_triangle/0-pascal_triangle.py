@@ -16,12 +16,9 @@ def pascal_triangle(n):
         for j in range(i):
             res = 0
             j = j + 1
-            if j:
-                res = lst[i - 1][j - 1]
-                if j < i:
-                    res += lst[i - 1][j]
-            else:
-                res = 1
+            res = lst[i - 1][j - 1]
+            if j < i:
+                res += lst[i - 1][j]
             child.append(res)
         lst.append(child)
 
