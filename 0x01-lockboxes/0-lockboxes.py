@@ -17,7 +17,7 @@ def canUnlockAll(boxes):
     # for i in range(3): this will fail if after 3rd loop additional keys
     # were found which could have opened new boxes
 
-    init_len_of_keys = len(keys_set)  # used to check when no new keys were found
+    init_len_of_keys = len(keys_set)  # used to check when no new keys found
     while True:
         for lock in boxes_dict:
             if not boxes_dict[lock]:
