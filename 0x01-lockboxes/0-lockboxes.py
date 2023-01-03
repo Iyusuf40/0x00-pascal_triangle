@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+""" lockboxes technical algo prep """
+
+
+def canUnlockAll(boxes):
+    """ returns a bool showing can or cannot unlock box """
+    boxes_dict = {}
+    for box in range(len(boxes)):
+        boxes_dict[box] = False
+
+    boxes_dict[0] = True
+
+    # keys_set = set([key for keys in boxes for key in keys])
+    keys_set = set()
+    keys_set.update(boxes[0])
+
+    for i in range(3):
+        for lock in boxes_dict:
+            if not boxes_dict[lock]:
+                if lock in keys_set:
+                    boxes_dict[lock] = True
+                    keys_set.update(boxes[lock])
+    # print(boxes_dict, keys_set)
+    return check_boxes_dict(boxes_dict)
+
+
+def check_boxes_dict(bxs_dct):
+    """ checks if all boxes are unlocked """
+    for box in bxs_dct:
+        if not bxs_dct[box]:
+            return False
+    return True
