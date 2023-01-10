@@ -18,7 +18,8 @@ def minOperations(n):
     if path[-1] == 1:
         return 0
 
-    return get_ops(path, n)
+    res = get_ops(path, n)
+    return res if res <= n else 0
 
 
 def get_divisors(n: int):
@@ -60,9 +61,9 @@ def get_ops(lst, n):
 
 
 if __name__ == "__main__":
-    print(minOperations(8))
-    print(minOperations(17))
-    print(minOperations(50))
-    print(minOperations(9))
-    print(minOperations(4))
-    print(minOperations(12))
+    print(minOperations(8), "for 8")
+    print(minOperations(17), "for 17")
+    print(minOperations(50), "for 50")
+    print(minOperations(9), "for 9")
+    print(minOperations(4), "for 4")
+    print(minOperations(12), "for 12")
