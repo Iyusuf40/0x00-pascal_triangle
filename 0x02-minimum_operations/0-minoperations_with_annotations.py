@@ -2,7 +2,10 @@
 """ module doc string """
 
 
-def minOperations(n):
+from typing import List, Set, Sequence
+
+
+def minOperations(n: int) -> int:
     """min ops"""
     if not n:
         return 0
@@ -10,7 +13,7 @@ def minOperations(n):
     if n == 1:
         return 1
 
-    all_max_divs = set()
+    all_max_divs: Set[float] = set()
 
     divisors = get_divisors(n)
 
@@ -21,7 +24,7 @@ def minOperations(n):
     return get_ops(path, n)
 
 
-def get_divisors(n: int):
+def get_divisors(n: int) -> List[int]:
     """ returns divisors of n """
     lst = []
     half = n / 2
@@ -34,7 +37,10 @@ def get_divisors(n: int):
     return lst
 
 
-def get_halves_recurs(lst, all_max_divs):
+def get_halves_recurs(
+        lst: List[int],
+        all_max_divs: Set[float]
+        ) -> Set[float]:
     """ recursively get the max divisors of each max divisor """
     max = lst[-1]
     all_max_divs.add(max)
@@ -44,12 +50,12 @@ def get_halves_recurs(lst, all_max_divs):
     return get_halves_recurs(divisors, all_max_divs)
 
 
-def get_ops(lst, n):
+def get_ops(lst: List[float], n: int) -> int:
     """ computes number of operatons needed"""
     lst.append(n)
     ln = len(lst)
     idx = 0
-    res = 0
+    res: float = 0.0
 
     # print(lst)
     while idx < ln - 1:
