@@ -4,7 +4,7 @@
 
 def minOperations(n):
     """min ops"""
-    if not n:
+    if not n or (isinstance(n, int) and n < 0):
         return 0
 
     if n == 1:
@@ -70,6 +70,7 @@ def get_ops(lst, n):
 
 
 if __name__ == "__main__":
+    print(minOperations(-1), "for negative no")
     print(minOperations(1), "for 1")
     print(minOperations(2), "for 2")
     print(minOperations("hello"), "for not int")
