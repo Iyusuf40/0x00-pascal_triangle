@@ -1,34 +1,73 @@
 #!/usr/bin/python3
-"""
-0. Minimum Operations
-In a text file, there is a single character H.
-Your text editor can execute only two operations in this
-file: Copy All and Paste
-"""
+""" module doc string """
 
 
 def minOperations(n):
-    """calculates the fewest number of operations
-    needed to result in exactly n 'H' characters in the file.
-    """
-    if n <= 1:
+    """min ops"""
+
+    if not isinstance(n, int):
         return 0
 
-    # first operation has to be copy and paste already
-    operations = 2
-    hs = 2
-    clipboard = 1
+    if not n or (isinstance(n, int) and n < 0):
+        return 0
 
-    while hs < n:
-        if (n - hs) % hs == 0:
-            operations += 2
-            clipboard = hs
-        else:
-            operations += 1
+    if n == 1:
+        return 0
 
-        hs += clipboard
+    if n == 2:
+        return 2
 
-    return operations
+    if n == 3:
+        return 3
+
+    all_max_divs = set()
+
+    divisors = get_divisors(n)
+
+    path = sorted(get_halves_recurs(divisors, all_max_divs))
+    if path[-1] == 1:
+        return n
+
+    res = get_ops(path, n)
+    return res  # if res <= n else 0
+
+
+def get_divisors(n: int):
+    """ returns divisors of n """
+    lst = []
+    half = n / 2
+    x = 1  # if n % 2 else 2
+    while x < half + 1:
+        if n % x == 0:
+            lst.append(x)
+        x = x + 1
+
+    return lst
+
+
+def get_halves_recurs(lst, all_max_divs):
+    """ recursively get the max divisors of each max divisor """
+    max = lst[-1]
+    all_max_divs.add(max)
+    divisors = get_divisors(max)
+    if max == 1:
+        return all_max_divs
+    return get_halves_recurs(divisors, all_max_divs)
+
+
+def get_ops(lst, n):
+    """ computes number of operatons needed"""
+    lst.append(n)
+    ln = len(lst)
+    idx = 0
+    res = 0
+
+    # print(lst)
+    while idx < ln - 1:
+        res = res + (lst[idx + 1] / lst[idx])
+        idx = idx + 1
+
+    return int(res)
 
 
 if __name__ == "__main__":
