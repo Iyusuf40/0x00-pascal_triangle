@@ -24,14 +24,27 @@ def minOperations(n):
     return res  # if res <= n else 0
 
 
+# def get_divisors(n: int):
+#     """ returns divisors of n """
+#     lst = [1]
+#     x = 2
+#     while x <= 10:
+#         if n % x == 0:
+#             lst.append(n / x)
+#             return lst
+#         x = x + 1
+
+#     return lst
+
+
 def get_divisors(n: int):
     """ returns divisors of n """
-    lst = [1]
-    x = 2
-    while x < 10:
+    lst = []
+    half = n / 2
+    x = 1  # if n % 2 else 2
+    while x < half + 1:
         if n % x == 0:
-            lst.append(n / x)
-            return lst
+            lst.append(x)
         x = x + 1
 
     return lst
