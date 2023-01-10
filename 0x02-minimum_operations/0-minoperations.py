@@ -10,6 +10,12 @@ def minOperations(n):
     if n == 1:
         return 0
 
+    if n == 2:
+        return 2
+
+    if not isinstance(n, int):
+        return 0
+
     all_max_divs = set()
 
     divisors = get_divisors(n)
@@ -61,6 +67,9 @@ def get_ops(lst, n):
 
 
 if __name__ == "__main__":
+    print(minOperations(1), "for 1")
+    print(minOperations(2), "for 2")
+    print(minOperations("hello"), "for not int")
     print(minOperations(8), "for 8")
     print(minOperations(17), "for 17")
     print(minOperations(50), "for 50")
