@@ -10,8 +10,8 @@ def minOperations(n: int) -> int:
     if not n:
         return 0
 
-    if n == 1:
-        return 1
+    if n <= 1:
+        return 0
 
     all_max_divs: Set[float] = set()
 
@@ -26,15 +26,29 @@ def minOperations(n: int) -> int:
 
 def get_divisors(n: int) -> List[int]:
     """ returns divisors of n """
-    lst = []
+    lst = [1]
+    x = 2
     half = n / 2
-    x = 1  # if n % 2 else 2
-    while x < half + 1:
+    while x <= half:
         if n % x == 0:
-            lst.append(x)
+            lst.append(n / x)
+            return lst
         x = x + 1
 
     return lst
+
+
+# def get_divisors(n: int) -> List[int]:
+#     """ returns divisors of n """
+#     lst = []
+#     half = n / 2
+#     x = 1  # if n % 2 else 2
+#     while x < half + 1:
+#         if n % x == 0:
+#             lst.append(x)
+#         x = x + 1
+
+#     return lst
 
 
 def get_halves_recurs(
