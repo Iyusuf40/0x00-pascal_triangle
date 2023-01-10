@@ -25,8 +25,8 @@ def minOperations(n):
     divisors = get_divisors(n)
 
     path = sorted(get_halves_recurs(divisors, all_max_divs))
-    if path[-1] == 1:
-        return n
+    # if path[-1] == 1:
+    #     return n
 
     res = get_ops(path, n)
     return res  # if res <= n else 0
