@@ -8,7 +8,7 @@ def minOperations(n):
         return 0
 
     if n == 1:
-        return 1
+        return 0
 
     all_max_divs = set()
 
