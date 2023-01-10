@@ -29,7 +29,7 @@ def minOperations(n):
         return 0
 
     res = get_ops(path, n)
-    return res # if res <= n else 0
+    return res  # if res <= n else 0
 
 
 def get_divisors(n: int):
