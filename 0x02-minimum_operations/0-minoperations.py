@@ -11,10 +11,10 @@ def minOperations(n):
         return 0
 
     if n == 2:
-        return 0
+        return 2
 
     if n == 3:
-        return 0
+        return 3
 
     if not isinstance(n, int):
         return 0
