@@ -13,6 +13,9 @@ def minOperations(n):
     if n == 2:
         return 2
 
+    if n == 3:
+        return 3
+
     if not isinstance(n, int):
         return 0
 
@@ -70,6 +73,7 @@ if __name__ == "__main__":
     print(minOperations(1), "for 1")
     print(minOperations(2), "for 2")
     print(minOperations("hello"), "for not int")
+    print(minOperations(3), "for 3")
     print(minOperations(8), "for 8")
     print(minOperations(17), "for 17")
     print(minOperations(50), "for 50")
