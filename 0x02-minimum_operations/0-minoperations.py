@@ -14,19 +14,11 @@ def minOperations(n):
     if n <= 1:
         return 0
 
-    # if n == 2:
-    #     return 2
-
-    if n == 3:
-        return 3
-
     all_max_divs = set()
 
     divisors = get_divisors(n)
 
     path = sorted(get_halves_recurs(divisors, all_max_divs))
-    # if path[-1] == 1:
-    #     return n
 
     res = get_ops(path, n)
     return res  # if res <= n else 0
@@ -34,12 +26,12 @@ def minOperations(n):
 
 def get_divisors(n: int):
     """ returns divisors of n """
-    lst = []
-    half = n / 2
-    x = 1  # if n % 2 else 2
-    while x < half + 1:
+    lst = [1]
+    x = 2
+    while x < 10:
         if n % x == 0:
-            lst.append(x)
+            lst.append(n / x)
+            return lst
         x = x + 1
 
     return lst
@@ -71,6 +63,12 @@ def get_ops(lst, n):
 
 
 if __name__ == "__main__":
+    import time
+    # start = time.perf_counter()
+    # for x in range(200):
+    #     print(minOperations(x), f"for {x}")
+    # print(time.perf_counter() - start)
+    print(minOperations(1000), "for 1000")
     print(minOperations(-1), "for negative no")
     print(minOperations(1), "for 1")
     print(minOperations(2), "for 2")
