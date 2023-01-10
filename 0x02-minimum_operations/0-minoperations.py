@@ -4,6 +4,10 @@
 
 def minOperations(n):
     """min ops"""
+
+    if not isinstance(n, int):
+        return 0
+
     if not n or (isinstance(n, int) and n < 0):
         return 0
 
@@ -15,9 +19,6 @@ def minOperations(n):
 
     if n == 3:
         return 3
-
-    if not isinstance(n, int):
-        return 0
 
     all_max_divs = set()
 
