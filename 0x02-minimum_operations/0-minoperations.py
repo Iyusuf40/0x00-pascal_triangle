@@ -16,7 +16,7 @@ def minOperations(n):
 
     path = sorted(get_halves_recurs(divisors, all_max_divs))
     if path[-1] == 1:
-        return n
+        return 0
 
     return get_ops(path, n)
 
@@ -51,7 +51,7 @@ def get_ops(lst, n):
     idx = 0
     res = 0
 
-    # print(lst)
+    print(lst)
     while idx < ln - 1:
         res = res + (lst[idx + 1] / lst[idx])
         idx = idx + 1
@@ -62,7 +62,7 @@ def get_ops(lst, n):
 if __name__ == "__main__":
     # print(minOperations(8))
     # print(minOperations(17))
-    # print(minOperations(50))
-    print(minOperations(4))
+    print(minOperations(50))
     print(minOperations(9))
+    print(minOperations(4))
     print(minOperations(12))
