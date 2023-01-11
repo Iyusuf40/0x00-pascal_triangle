@@ -27,13 +27,16 @@ def minOperations(n):
 def get_divisors(n: int):
     """ returns divisors of n """
     lst = [1]
-    x = 2
+    if n % 2 == 0:
+        lst.append(n / 2)
+        return lst
+    x = 3
     half = n / 2
     while x <= half:
         if n % x == 0:
             lst.append(n / x)
             return lst
-        x = x + 1
+        x = x + 2
 
     return lst
 
