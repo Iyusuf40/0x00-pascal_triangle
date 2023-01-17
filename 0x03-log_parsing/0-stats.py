@@ -36,19 +36,18 @@ def main():
             if len(tokens) == 9:
                 try:
                     total_file_size += int(tokens[8])
-                    if tokens[7] in status_codes_count_map:
-                        status_codes_count_map[tokens[7]] += 1
+                    status_codes_count_map[tokens[7]] += 1
                     count += 1
                 except Exception:
                     pass
 
-                if count == 10:
-                    count = 0
-                    print_report(
-                        status_codes_count_map,
-                        total_file_size,
-                        order
-                    )
+            if count == 10:
+                count = 0
+                print_report(
+                    status_codes_count_map,
+                    total_file_size,
+                    order
+                )
         print_report(status_codes_count_map, total_file_size, order)
 
     except KeyboardInterrupt:
