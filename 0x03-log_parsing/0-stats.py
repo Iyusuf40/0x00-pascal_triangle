@@ -18,32 +18,32 @@ def main():
        "405": 0,
        "500": 0
     }
-    while True:
-        try:
-            count = 0
-            for line in sys.stdin:
-                tokens = line.split()
-                if len(tokens) == 9:
-                    total_file_size += int(tokens[8])
-                    count += 1
-                    status_codes_count_map[tokens[7]] += 1
+    # while True:
+    try:
+        count = 0
+        for line in sys.stdin:
+            tokens = line.split()
+            if len(tokens) == 9:
+                total_file_size += int(tokens[8])
+                count += 1
+                status_codes_count_map[tokens[7]] += 1
 
-                    if count == 10:
-                        count = 0
-                        print_report(
-                            status_codes_count_map,
-                            total_file_size
-                        )
-                        zero_status_codes_count_map(
-                            status_codes_count_map
-                        )
+                if count == 10:
+                    count = 0
+                    print_report(
+                        status_codes_count_map,
+                        total_file_size
+                    )
+                    zero_status_codes_count_map(
+                        status_codes_count_map
+                    )
 
-        except KeyboardInterrupt:
-            print_report(
-                status_codes_count_map,
-                total_file_size
-            )
-            break
+    except KeyboardInterrupt:
+        print_report(
+            status_codes_count_map,
+            total_file_size
+        )
+        # break
 
 
 def zero_status_codes_count_map(dct_):
