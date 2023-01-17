@@ -68,7 +68,7 @@ def print_report(dct_, file_size, order):
     """ prints to stdout summary of logs """
     print("File size: {}".format(file_size))
     for key in order:
-        if dct_[key]:
+        if dct_.get(key):
             print("{}: {}".format(key, dct_[key]))
 
 
