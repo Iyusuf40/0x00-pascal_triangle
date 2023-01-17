@@ -56,22 +56,22 @@ def main():
         raise
 
 
-# def print_report(dct_, file_size, order):
-#     """ prints to stdout summary of logs """
-#     print("File size: {}".format(file_size))
-#     for key in order:
-#         if dct_.get(key):
-#             print("{}: {}".format(key, dct_[key]))
-
-
 def print_report(dct_, file_size, order):
     """ prints to stdout summary of logs """
-    report = "File size: {}\n".format(file_size)
+    print("File size: {}".format(file_size))
     for key in order:
         if dct_.get(key):
-            report += "{}: {}\n".format(key, dct_[key])
-    report = report[:-1]
-    print(report)
+            print("{}: {}".format(key, dct_[key]))
+
+
+# def print_report(dct_, file_size, order):
+#     """ prints to stdout summary of logs """
+#     report = "File size: {}\n".format(file_size)
+#     for key in order:
+#         if dct_.get(key):
+#             report += "{}: {}\n".format(key, dct_[key])
+#     report = report[:-1]
+#     print(report)
 
 
 if __name__ == "__main__":
