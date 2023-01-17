@@ -8,16 +8,7 @@ import sys
 def main():
     """ main func """
     total_file_size = 0
-    order = [
-       "200",
-       "301",
-       "400",
-       "401",
-       "403",
-       "404",
-       "405",
-       "500"
-    ]
+
     status_codes_count_map = {
        "200": 0,
        "301": 0,
@@ -45,36 +36,24 @@ def main():
                     count = 0
                     print_report(
                         status_codes_count_map,
-                        total_file_size,
-                        order
+                        total_file_size
                     )
-        print_report(status_codes_count_map, total_file_size, order)
+        print_report(status_codes_count_map, total_file_size)
 
     except KeyboardInterrupt:
         print_report(
             status_codes_count_map,
             total_file_size,
-            order
         )
         raise
 
 
-def print_report(dct_, file_size, order):
+def print_report(dct_, file_size):
     """ prints to stdout summary of logs """
     print("File size: {}".format(file_size))
-    for key in order:
+    for key in sorted(dct_.keys()):
         if dct_.get(key):
             print("{}: {}".format(key, dct_[key]))
-
-
-# def print_report(dct_, file_size, order):
-#     """ prints to stdout summary of logs """
-#     report = "File size: {}\n".format(file_size)
-#     for key in order:
-#         if dct_.get(key):
-#             report += "{}: {}\n".format(key, dct_[key])
-#     report = report[:-1]
-#     print(report)
 
 
 if __name__ == "__main__":
