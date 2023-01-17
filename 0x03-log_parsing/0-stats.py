@@ -36,7 +36,8 @@ def main():
             if len(tokens) == 9:
                 try:
                     total_file_size += int(tokens[8])
-                    status_codes_count_map[tokens[7]] += 1
+                    if tokens[7] in status_codes_count_map:
+                        status_codes_count_map[tokens[7]] += 1
                     count += 1
                 except Exception:
                     pass
