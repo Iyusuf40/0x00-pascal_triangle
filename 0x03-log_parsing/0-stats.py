@@ -8,6 +8,16 @@ import sys
 def main():
     """ main func """
     total_file_size = 0
+    order = [
+       "200",
+       "301",
+       "400",
+       "401",
+       "403",
+       "404",
+       "405",
+       "500"
+    ]
     status_codes_count_map = {
        "200": 0,
        "301": 0,
@@ -32,7 +42,8 @@ def main():
                     count = 0
                     print_report(
                         status_codes_count_map,
-                        total_file_size
+                        total_file_size,
+                        order
                     )
                     # zero_status_codes_count_map(
                     #     status_codes_count_map
@@ -41,7 +52,8 @@ def main():
     except KeyboardInterrupt:
         print_report(
             status_codes_count_map,
-            total_file_size
+            total_file_size,
+            order
         )
         # break
 
@@ -52,10 +64,10 @@ def zero_status_codes_count_map(dct_):
         dct_[key] = 0
 
 
-def print_report(dct_, file_size):
+def print_report(dct_, file_size, order):
     """ prints to stdout summary of logs """
     print("File size: {}".format(file_size))
-    for key in dct_:
+    for key in order:
         if dct_[key]:
             print("{}: {}".format(key, dct_[key]))
 
