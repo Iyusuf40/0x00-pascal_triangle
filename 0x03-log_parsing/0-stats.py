@@ -34,12 +34,9 @@ def main():
         for line in sys.stdin:
             tokens = line.split()
             if len(tokens) == 9:
-                try:
-                    total_file_size += int(tokens[8])
-                    count += 1
-                    status_codes_count_map[tokens[7]] += 1
-                except Exception:
-                    pass
+                total_file_size += int(tokens[8])
+                count += 1
+                status_codes_count_map[tokens[7]] += 1
 
                 if count == 10:
                     count = 0
@@ -63,7 +60,7 @@ def print_report(dct_, file_size, order):
     """ prints to stdout summary of logs """
     print("File size: {}".format(file_size))
     for key in order:
-        if dct_.get(key):
+        if dct_.get(key) and dct_[key] != 0:
             print("{}: {}".format(key, dct_[key]))
 
 
