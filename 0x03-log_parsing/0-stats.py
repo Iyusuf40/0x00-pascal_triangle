@@ -8,18 +8,8 @@ import sys
 def main():
     """ main func """
     total_file_size = 0
-
-    status_codes_count_map = {
-       "200": 0,
-       "301": 0,
-       "400": 0,
-       "401": 0,
-       "403": 0,
-       "404": 0,
-       "405": 0,
-       "500": 0
-    }
-
+    status_codes_count_map = {"200": 0, "301": 0, "400": 0, "401": 0,
+                              "403": 0, "404": 0, "405": 0, "500": 0}
     try:
         count = 0
         for line in sys.stdin:
@@ -31,7 +21,6 @@ def main():
                     count += 1
                 except Exception:
                     pass
-
                 if count == 10:
                     count = 0
                     print_report(
@@ -41,10 +30,7 @@ def main():
         print_report(status_codes_count_map, total_file_size)
 
     except KeyboardInterrupt:
-        print_report(
-            status_codes_count_map,
-            total_file_size,
-        )
+        print_report(status_codes_count_map, total_file_size)
         raise
 
 
