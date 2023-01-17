@@ -28,7 +28,7 @@ def main():
        "405": 0,
        "500": 0
     }
-    # while True:
+
     try:
         count = 0
         for line in sys.stdin:
@@ -45,9 +45,6 @@ def main():
                         total_file_size,
                         order
                     )
-                    # zero_status_codes_count_map(
-                    #     status_codes_count_map
-                    # )
 
     except KeyboardInterrupt:
         print_report(
@@ -55,21 +52,24 @@ def main():
             total_file_size,
             order
         )
-        # break
 
 
-def zero_status_codes_count_map(dct_):
-    """ reinitializes dct to 0 """
-    for key in dct_:
-        dct_[key] = 0
+# def print_report(dct_, file_size, order):
+#     """ prints to stdout summary of logs """
+#     print("File size: {}".format(file_size))
+#     for key in order:
+#         if dct_.get(key):
+#             print("{}: {}".format(key, dct_[key]))
 
 
 def print_report(dct_, file_size, order):
     """ prints to stdout summary of logs """
-    print("File size: {}".format(file_size))
+    report = "File size: {}\n".format(file_size)
     for key in order:
         if dct_.get(key):
-            print("{}: {}".format(key, dct_[key]))
+            report += "{}: {}\n".format(key, dct_[key])
+    report = report[:-1]
+    print(report)
 
 
 if __name__ == "__main__":
