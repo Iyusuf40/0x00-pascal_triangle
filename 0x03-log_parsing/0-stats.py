@@ -52,6 +52,7 @@ def main():
             total_file_size,
             order
         )
+        raise
 
 
 # def print_report(dct_, file_size, order):
