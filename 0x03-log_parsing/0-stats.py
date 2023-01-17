@@ -37,9 +37,9 @@ def main():
                 try:
                     total_file_size += int(tokens[8])
                     status_codes_count_map[tokens[7]] += 1
-                    count += 1
                 except Exception:
                     pass
+            count += 1
 
             if count == 10:
                 count = 0
