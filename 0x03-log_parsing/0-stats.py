@@ -34,9 +34,12 @@ def main():
         for line in sys.stdin:
             tokens = line.split()
             if len(tokens) == 9:
-                total_file_size += int(tokens[8])
-                count += 1
-                status_codes_count_map[tokens[7]] += 1
+                try:
+                    total_file_size += int(tokens[8])
+                    count += 1
+                    status_codes_count_map[tokens[7]] += 1
+                except Exception:
+                    pass
 
                 if count == 10:
                     count = 0
