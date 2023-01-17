@@ -34,9 +34,9 @@ def main():
                         status_codes_count_map,
                         total_file_size
                     )
-                    zero_status_codes_count_map(
-                        status_codes_count_map
-                    )
+                    # zero_status_codes_count_map(
+                    #     status_codes_count_map
+                    # )
 
     except KeyboardInterrupt:
         print_report(
