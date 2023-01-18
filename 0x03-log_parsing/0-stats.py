@@ -42,6 +42,5 @@ def print_report(dct_, file_size):
             print("{}: {}".format(key, dct_[key]))
 
 
-main()
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
