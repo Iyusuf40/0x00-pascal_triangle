@@ -13,12 +13,12 @@ def main():
     try:
         count = 0
         for line in sys.stdin:
+            count += 1
             tokens = line.split()
             if len(tokens) == 9:
                 try:
                     total_file_size += int(tokens[8])
                     status_codes_count_map[tokens[7]] += 1
-                    count += 1
                 except Exception:
                     pass
                 if count == 10:
