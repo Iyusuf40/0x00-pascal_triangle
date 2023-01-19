@@ -15,10 +15,10 @@ def main():
         for line in sys.stdin:
             count += 1
             tokens = line.split()
-            if len(tokens) == 9:
+            if len(tokens):
                 try:
-                    total_file_size += int(tokens[8])
-                    status_codes_count_map[tokens[7]] += 1
+                    total_file_size += int(tokens[-1])
+                    status_codes_count_map[tokens[-2]] += 1
                 except Exception:
                     pass
                 if count == 10:
