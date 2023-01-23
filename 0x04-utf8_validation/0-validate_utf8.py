@@ -54,7 +54,7 @@ blank_4_bytes = 8
 top_3_bits = 224
 blank_3_bytes = 16
 
-top_2_bits = 208
+top_2_bits = 192
 blank_2_bytes = 32
 
 top_1_bit = 128
@@ -72,17 +72,17 @@ def validUTF8(data):
     while index < len(data):
         byte = data[index]
         if byte > 127:
-            if top_4_bits ^ byte < top_4_bits and not blank_4_bytes & byte:
+            if top_4_bits ^ byte < 16 and not blank_4_bytes & byte:
                 if check_continuation_bytes(data, 3, index):
                     index += 4
                 else:
                     return False
-            elif top_3_bits ^ byte < top_3_bits and not blank_3_bytes & byte:
+            elif top_3_bits ^ byte < 32 and not blank_3_bytes & byte:
                 if check_continuation_bytes(data, 2, index):
                     index += 3
                 else:
                     return False
-            elif top_2_bits ^ byte < top_2_bits and not blank_2_bytes & byte:
+            elif top_2_bits ^ byte < 64 and not blank_2_bytes & byte:
                 if check_continuation_bytes(data, 1, index):
                     index += 2
                 else:
