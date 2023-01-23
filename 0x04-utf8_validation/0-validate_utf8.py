@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" module's doc string 
+""" module's doc string
 Module contains validUTF8 function that validates an array
 of data if it is a valid utf8 byte stream
 
@@ -14,7 +14,7 @@ character is encoded with 4 bytes.
 - blank_4_bytes: decimal -> 8 Hex -> \x08 Binary -> 0000 1000
 is used to ensure the immediate bit after top_4_bits is 0
 as this is the convention for utf8 encoding ie first byte
-must be 11110xxx pattern. Link: 
+must be 11110xxx pattern. Link:
 https://en.wikipedia.org/wiki/UTF-8#Encoding
 
 - blank_3_bytes, blank_2_bytes, blank_1_byte: LOOK blank_4_bytes
