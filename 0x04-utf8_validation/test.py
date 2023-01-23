@@ -50,3 +50,9 @@ print(validUTF8(data))  # false [
                         # contains copies of the previous passed ones with
                         # some ascii in between and a multibyte starter at the end
                         # without its continuation bytes
+
+data = [248, 165, 138, 128]
+print(validUTF8(data)) # false [1111 1001, 1010 0101, 1000 1010, 1000 0000]
+                       # because 1st byte has no 0 bit after first 4 1s which
+                       # is required to signify end of bytes count that
+                       # represent multibye characters
