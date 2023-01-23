@@ -56,3 +56,6 @@ print(validUTF8(data)) # false [1111 1001, 1010 0101, 1000 1010, 1000 0000]
                        # because 1st byte has no 0 bit after first 4 1s which
                        # is required to signify end of bytes count that
                        # represent multibye characters
+
+data = [128, 165, 138, 128]
+print(validUTF8(data)) # false [1000 0000, 1010 0101, 1000 1010, 1000 0000]
