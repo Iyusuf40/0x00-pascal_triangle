@@ -25,18 +25,18 @@ def validUTF8(data):
 
     while  index < len(data):
         byte = data[index]
-        if top_four_bits & byte and not blank_four_bytes & byte:
+        if top_four_bits & byte >= top_four_bits and not blank_four_bytes & byte:
             print("enterd")
             if check_continuation_bytes(data, 3, index):
                 index += 4
             else:
                 return False
-        elif top_three_bits & byte and not blank_three_bytes & byte:
+        elif top_three_bits & byte >= top_three_bits and not blank_three_bytes & byte:
             if check_continuation_bytes(data, 2, index):
                 index += 3
             else:
                 return False
-        elif top_two_bits & byte and not blank_two_bytes & byte:
+        elif top_two_bits & byte >= top_two_bits and not blank_two_bytes & byte:
             if check_continuation_bytes(data, 1, index):
                 index += 2
             else:
