@@ -98,6 +98,8 @@ def check_continuation_bytes(data, no_of_continuation_bytes, current_index):
     """ checks if continuation bytes are valid """
     index = current_index + 1
     end = index + no_of_continuation_bytes
+    if end > len(data):  # will raise index error
+        return False
     while index < end:
         if data[index] & top_1_bit and not data[index] & blank_1_byte:
             index += 1
