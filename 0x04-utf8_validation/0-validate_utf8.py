@@ -71,6 +71,8 @@ def validUTF8(data):
 
     while index < len(data):
         byte = data[index]
+        if byte > 255:
+            byte = (byte ^ 255) & 255
         if byte > 127:
             if top_4_bits ^ byte < 16 and not blank_4_bytes & byte:
                 if check_continuation_bytes(data, 3, index):
