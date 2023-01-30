@@ -1,4 +1,45 @@
 #!/usr/bin/python3
+"""
+module contains function that takes in cmd line arg n
+and prints the positions n queens would be placed
+on a n*n chess board.
+
+APPROACH:
+-> chess board is represented as 2-dimensional array
+-> however this implementation will represent
+   the board as a flattened array by its indeces
+   e.g [
+    [0, 1, 2, 3],
+    [0, 1, 2, 3],
+    [0, 1, 2, 3],
+    [0, 1, 2, 3]
+    ]
+   will be represented as 0 - 15 to map each position
+   to its corresponding index if it were flattend
+-> get all possible indeces of the flattened array
+-> each index will be called member from now on
+-> all possible indeces == n * n - 1
+-> virtuallize the 2-dim array or chessboard by
+   having functions that compute row and index
+   of each member of all_indeces
+     - get_index returns index of the member
+     - get_row returns row which member belongs
+       in the 2-dim array
+
+*** MAJOR ASSUMPTION ***
+-> for n number of queens to be placed on the board
+   without each having collision path with others means
+   each row must have a queen at a position unreachable
+   by all other queens
+   THEREFORE:
+   ALGO:
+    -> loop over first row and search for all possible
+       members on the later rows that meets the requirement
+    -> for each row do as the above
+    -> if a row doesnt have a qualified member
+       backtrack and continue searching later members of
+       the previous row
+"""
 
 
 import sys
@@ -90,14 +131,14 @@ def search_match(tracker, curr_no, length, max_index):
 
 def get_index(num, no_of_cols):
     """ returns the computed index of a flattened
-    2 dimensional array
+    2 dimensional array member
     """
     return num % no_of_cols
 
 
 def get_row(num, no_of_rows):
     """ returns the computed row of a flattened
-    2 dimensional array
+    2 dimensional array member
     """
     if num == 0:
         return 0
