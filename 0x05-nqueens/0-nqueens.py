@@ -111,8 +111,8 @@ def search_match(tracker, curr_no, length, max_index):
     # if found append match to tracker and go deeper
     # else backtrack and remove latest appended match
     first_mem_of_next_row = go_to_next_row(curr_no, length)
-    last_mem_of_next_row = first_mem_of_next_row + length
-    for num in range(first_mem_of_next_row, last_mem_of_next_row):
+    first_mem_after_next_row = first_mem_of_next_row + length
+    for num in range(first_mem_of_next_row, first_mem_after_next_row):
         if can_coexist_with_all(tracker, num, length):
             tracker.append(num)
             if len(tracker) == length:
