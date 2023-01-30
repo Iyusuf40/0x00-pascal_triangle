@@ -26,12 +26,48 @@ def main():
     for num in range(n):
         track_recursively(coexistable, num, n, all_indeces)
 
+    for row in coexistable:
+        to_print = []
+        for index in range(len(row)):
+            num = row[index]
+            row_col_pair = [get_row(num, n), get_index(num, n)]
+            to_print.append(row_col_pair)
+        print(to_print)
     return coexistable
 
 
 def track_recursively(global_array, curr_no, length, max_index):
     """ implements main logic """
-    pass
+    tracker = []
+    tracker.append(curr_no)
+    # call search_match
+    # if successful return tracker from search_match
+    # and append to global_array
+    # else return none
+    res = search_match(tracker, curr_no, length, max_index)
+    if res:
+        global_array.append(res)
+    else:
+        return
+
+
+def search_match(tracker, curr_no, length, max_index):
+    """ searches for coexistable quuens """
+    # go to next row
+    # loop over indeces of next row and find match
+    # if found append match to tracker and go deeper
+    # else backtrack and remove latest appended match
+    first_mem_of_next_row = go_to_next_row(curr_no, length)
+    last_mem_of_next_row = first_mem_of_next_row + length
+    for num in range(first_mem_of_next_row, last_mem_of_next_row):
+        if can_coexist_with_all(tracker, num, length):
+            tracker.append(num)
+            if len(tracker) == length:
+                return tracker
+            return search_match(tracker, num, length, max_index)
+        if curr_no > max_index:
+            return None
+    return None
 
 
 def get_index(num, no_of_cols):
@@ -96,6 +132,17 @@ def can_coexist(curr_no, comp_no, n):
     return True
 
 
+def can_coexist_with_all(all_list, comp_no, n):
+    """ checks if comp_no is not in a path accessible by
+    any number in all_list based on get_index and get_row
+    """
+    for num in all_list:
+        if not can_coexist(num, comp_no, n):
+            return False
+    return True
+
+
 if __name__ == "__main__":
-    main()
-    print(can_coexist(1, 15, 4))
+    x = main()
+    # print(x)
+    # print(can_coexist(1, 15, 4))
