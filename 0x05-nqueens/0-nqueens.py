@@ -164,7 +164,7 @@ def is_in_diagonal_path(curr_no, comp_no, n):
 
     *** LOGIC ***
     -> if the difference between curr_no index
-       and comp_no index is equal to ther difference
+       and comp_no index is equal to the difference
        btwn curr_no and comp_no row then they must
        be in the same diagonal path e.g consider
        this chess board and see the results if it
