@@ -232,4 +232,3 @@ def can_coexist_with_all(all_list, comp_no, n):
 if __name__ == "__main__":
     x = main()
     # print(x)
-    # print(can_coexist(1, 15, 4))
