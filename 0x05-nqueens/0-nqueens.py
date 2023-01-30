@@ -147,7 +147,7 @@ def get_row(num, no_of_rows):
 
 
 def abs(n):
-    """ computes absolute vslue of n """
+    """ computes absolute value of n """
     if n < 0:
         n = n * -1
     return n
@@ -159,8 +159,36 @@ def go_to_next_row(curr_no, length):
 
 
 def is_in_diagonal_path(curr_no, comp_no, n):
-    """ checks if compared_no is in the diagonal
-    path of current_no based on get_index and get_row
+    """ checks if comp_no is in the diagonal
+    path of curr_no based on get_index and get_row
+
+    *** LOGIC ***
+    -> if the difference between curr_no index
+       and comp_no index is equal to ther difference
+       btwn curr_no and comp_no row then they must
+       be in the same diagonal path e.g consider
+       this chess board and see the results if it
+       members will clash with x diagonally in the
+       table below it.
+       [
+        [y, 0, 0, c, z],
+        [0, 0, 0, 0, 0],
+        [0, 0, x, 0, 0],
+        [0, d, w, 0, 0],
+        [a, 0, 0, 0, b],
+       ]
+
+        (x)col_diff:row_dif => differences between row and index
+        of selected members with compared to x
+    member   col     row    (x)col_diff:row_diff  will_clash_diag
+      x       2       2              0 : 0             -
+      y       0       0              2 : 2            True
+      c       3       0              1 : 2            False
+      z       4       0              2 : 2            True
+      a       0       4              2 : 2            True
+      b       4       4              2 : 2            True
+      d       1       3              1 : 1            True
+      w       2       3              0 : 1            False
     """
     row_diff = abs(get_row(curr_no, n) - get_row(comp_no, n))
     col_diff = abs(get_index(curr_no, n) - get_index(comp_no, n))
@@ -170,8 +198,8 @@ def is_in_diagonal_path(curr_no, comp_no, n):
 
 
 def is_in_hor_or_ver_path(curr_no, comp_no, n):
-    """ checks if compared_no is in the horizontal or vertical
-    path of current_no based on get_index and get_row
+    """ checks if comp_no is in the horizontal or vertical
+    path of curr_no based on get_index and get_row
     """
     if get_index(curr_no, n) == get_index(comp_no, n):
         return True
