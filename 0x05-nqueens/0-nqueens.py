@@ -64,9 +64,11 @@ def search_match(tracker, curr_no, length, max_index):
             tracker.append(num)
             if len(tracker) == length:
                 return tracker
-            return search_match(tracker, num, length, max_index)
-        if curr_no > max_index:
-            return None
+            res = search_match(tracker, num, length, max_index)
+            if res:
+                return res
+            else:
+                tracker.pop()
     return None
 
 
