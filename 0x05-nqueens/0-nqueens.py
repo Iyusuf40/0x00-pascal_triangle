@@ -21,15 +21,14 @@ def main():
         print("N must be at least 4")
         sys.exit(1)
 
-    coexistable = []
+    coexistable = []  # all coexistable queens will be stored here
     all_indeces = (n * n) - 1
     for num in range(n):
         track_recursively(coexistable, num, n, all_indeces)
 
     for row in coexistable:
         to_print = []
-        for index in range(len(row)):
-            num = row[index]
+        for num in row:
             row_col_pair = [get_row(num, n), get_index(num, n)]
             to_print.append(row_col_pair)
         print(to_print)
@@ -37,7 +36,7 @@ def main():
 
 
 def track_recursively(global_array, curr_no, length, max_index):
-    """ implements main logic """
+    """ brings main logic together """
     tracker = []
     tracker.append(curr_no)
     # call search_match
@@ -52,7 +51,20 @@ def track_recursively(global_array, curr_no, length, max_index):
 
 
 def search_match(tracker, curr_no, length, max_index):
-    """ searches for coexistable quuens """
+    """ Implements main logic:
+    searches for coexistable queens
+    STEPS:
+    -> Jumps to next row after the row of curr_no
+    -> loops over each member of that row
+    -> if member is coexistable with all previous queens
+       in tracker array, append member then search next row
+       by calling search_match recursively
+    -> if in a row no coexistable member is found
+    -> backtrack up one level
+        - remove the curr_no from tracker array
+        - check the next member in the removed member's row
+        - continue the search till all members are exhausted
+    """
     # go to next row
     # loop over indeces of next row and find match
     # if found append match to tracker and go deeper
@@ -65,11 +77,15 @@ def search_match(tracker, curr_no, length, max_index):
             if len(tracker) == length:
                 return tracker
             res = search_match(tracker, num, length, max_index)
-            if res:
+            if res:  # search succesful to last row
                 return res
             else:
-                tracker.pop()
-    return None
+                tracker.pop()  # a particular row has a
+                # non-coexistable member
+                # remove member appended on line 76
+                # search remaining members in
+                # current row
+    return None  # no member in row is coexistable
 
 
 def get_index(num, no_of_cols):
