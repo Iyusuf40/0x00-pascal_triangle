@@ -123,7 +123,7 @@ def search_match(tracker, curr_no, length, max_index):
             else:
                 tracker.pop()  # a particular row has a
                 # non-coexistable member
-                # remove member appended on line 76
+                # remove member appended before going deeper
                 # search remaining members in
                 # current row
     return None  # no member in row is coexistable
