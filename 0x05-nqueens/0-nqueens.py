@@ -84,14 +84,10 @@ def track_recursively(global_array, curr_no, length, max_index):
     # if successful return tracker from search_match
     # and append to global_array
     # else return none
-    res = search_match(tracker, curr_no, length, max_index)
-    if res:
-        global_array.append(res)
-    else:
-        return
+    search_match(tracker, curr_no, length, max_index, global_array)
 
 
-def search_match(tracker, curr_no, length, max_index):
+def search_match(tracker, curr_no, length, max_index, global_arr):
     """ Implements main logic:
     searches for coexistable queens
     STEPS:
@@ -112,21 +108,36 @@ def search_match(tracker, curr_no, length, max_index):
     # else backtrack and remove latest appended match
     first_mem_of_next_row = go_to_next_row(curr_no, length)
     first_mem_after_next_row = first_mem_of_next_row + length
+    if first_mem_of_next_row > max_index:
+        return False
+    flag = False
     for num in range(first_mem_of_next_row, first_mem_after_next_row):
         if can_coexist_with_all(tracker, num, length):
+            flag = True
             tracker.append(num)
             if len(tracker) == length:
-                return tracker
-            res = search_match(tracker, num, length, max_index)
+                # print("tracker", tracker)
+                global_arr.append(tracker[:])
+                # tracker.pop()
+                # continue
+            res = search_match(tracker, num, length, max_index, global_arr)
             if res:  # search succesful to last row
-                return res
+                flag = True
             else:
-                tracker.pop()  # a particular row has a
+                try:
+                    # print("tracker", tracker)
+                    # if len(tracker) < length:
+                    tracker.pop()  # a particular row has a
+                except Exception:
+                    pass
+                # return False
                 # non-coexistable member
                 # remove member appended before going deeper
                 # search remaining members in
                 # current row
-    return None  # no member in row is coexistable
+        # else:
+        #     flag = False
+    # return flag  # no member in row is coexistable
 
 
 def get_index(num, no_of_cols):
