@@ -110,34 +110,17 @@ def search_match(tracker, curr_no, length, max_index, global_arr):
     first_mem_after_next_row = first_mem_of_next_row + length
     if first_mem_of_next_row > max_index:
         return False
-    flag = False
+
     for num in range(first_mem_of_next_row, first_mem_after_next_row):
         if can_coexist_with_all(tracker, num, length):
-            flag = True
             tracker.append(num)
             if len(tracker) == length:
-                # print("tracker", tracker)
                 global_arr.append(tracker[:])
-                # tracker.pop()
-                # continue
-            res = search_match(tracker, num, length, max_index, global_arr)
-            if res:  # search succesful to last row
-                flag = True
-            else:
-                try:
-                    # print("tracker", tracker)
-                    # if len(tracker) < length:
-                    tracker.pop()  # a particular row has a
-                except Exception:
-                    pass
-                # return False
-                # non-coexistable member
-                # remove member appended before going deeper
-                # search remaining members in
-                # current row
-        # else:
-        #     flag = False
-    # return flag  # no member in row is coexistable
+            search_match(tracker, num, length, max_index, global_arr)
+            try:
+                tracker.pop()
+            except Exception:
+                pass
 
 
 def get_index(num, no_of_cols):
