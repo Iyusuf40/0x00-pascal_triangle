@@ -142,19 +142,28 @@ def printx(lst):
     print("]")
 
 
+def build_matrix(n):
+    """ builds n * n 2d matrix """
+    parent = []
+    y = 1
+    for i in range(n):
+        child = []
+        for x in range(y, n * n + 1):
+            child.append(x)
+            if x % n == 0 and x != 1:
+                y = x + 1
+                break
+        parent.append(child)
+    return parent
+
+
 if __name__ == "__main__":
-    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    matrix = build_matrix(3)
 
     rotate_2d_matrix(matrix)
     printx(matrix)
     print()
-    matrix = [
-        [1, 2, 3, 4, 5],
-        [6, 7, 8, 9, 10],
-        [11, 12, 13, 14, 15],
-        [16, 17, 18, 19, 20],
-        [21, 22, 23, 24, 25],
-    ]
+    matrix = build_matrix(5)
 
     rotate_2d_matrix(matrix)
     printx(matrix)
