@@ -3,8 +3,6 @@
 
 island_prm = __import__("0-island_perimeter").island_perimeter
 import time
-import sys
-sys.setrecursionlimit(100000)
 
 def island_perimeter_cto(grid):
     """Looks up and left to subtract water"""
@@ -136,7 +134,7 @@ def grid_print(grid):
 
 
 if __name__ == "__main__":
-    grid = create_island_sqaure_of_side_x(3000)
+    grid = create_island_sqaure_of_side_x(5000)
     # grid_print(grid)
     print()
     start = time.perf_counter()
