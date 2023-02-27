@@ -1,5 +1,25 @@
 #!/usr/bin/python3
-""" Island perimeter solution"""
+""" Island perimeter solution
+Create a function def island_perimeter(grid):
+    that returns the perimeter of the island described in grid:
+
+grid is a list of list of integers:
+- 0 represents water
+- 1 represents land
+Each cell is square, with a side length of 1
+Cells are connected horizontally/vertically (not diagonally).
+grid is rectangular, with its width and height not exceeding 100
+The grid is completely surrounded by water
+There is only one island (or nothing).
+The island doesn't have “lakes” (water inside that isn't
+connected to the water surrounding the island).
+
+Approach:
+    -find the first wall
+        -> implementation in get_first_wall function
+    - walk along the sides of the walls and measure length
+        -> implementation in check_walls function
+"""
 
 
 def island_perimeter(grid):
@@ -18,16 +38,20 @@ def island_perimeter(grid):
 
     init_position = [start_row, start_col, False]
 
-    first_square_prm = get_first_square_prm(grid, start_row, start_col, width)
-    sum = first_square_prm - 1 + check_walls(
+    first_square_prm = get_first_square_prm(grid, start_row,
+                                            start_col, width - 1)
+    other_blocks_prm = check_walls(
         grid, start_row, start_col, height - 1, width - 1, '0', init_position
     )
+    if other_blocks_prm > 1:
+        other_blocks_prm -= 1
+    sum = first_square_prm + other_blocks_prm
 
     return sum
 
 
 def get_first_wall(grid, height, width):
-    """searches for first wall and returns its position """
+    """searches for first wall and returns its position"""
     for start_row in range(height):
         for start_col in range(width):
             if grid[start_row][start_col]:
@@ -50,7 +74,8 @@ def get_first_square_prm(grid, start_row, start_col, width):
 
 def check_walls(grid, curr_row, curr_col, height, width, direction,
                 start_position):
-    """ walks along walls and counts each square face """
+    """ walks along walls like a human would
+    and counts each square face """
     sum = 0
 
     if [curr_row, curr_col, True] == start_position:
@@ -273,6 +298,7 @@ if __name__ == "__main__":
         [0, 0, 0, 0, 0, 0]
     ]
     print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 12)
 
     grid = [
         [0, 0, 0, 0, 0, 0],
@@ -282,6 +308,7 @@ if __name__ == "__main__":
         [0, 0, 0, 0, 0, 0]
     ]
     print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 16)
 
     grid = [
         [1, 1, 1, 1, 1, 1],
@@ -291,6 +318,7 @@ if __name__ == "__main__":
         [1, 1, 1, 1, 1, 1]
     ]
     print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 22)
 
     grid = [
         [0, 0, 1, 1, 1, 1],
@@ -300,3 +328,84 @@ if __name__ == "__main__":
         [1, 1, 1, 1, 1, 1]
     ]
     print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 26)
+
+    grid = [
+        [1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 6)
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 0)
+
+    grid = [
+        [0, 0, 0, 0, 0, 1],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
