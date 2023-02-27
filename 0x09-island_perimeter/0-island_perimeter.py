@@ -77,216 +77,184 @@ def check_walls(grid, curr_row, curr_col, height, width, direction,
     """ walks along walls like a human would
     and counts each square face """
     sum = 0
+    next_row = curr_row
+    next_col = curr_col
 
-    if [curr_row, curr_col, True] == start_position:
-        return 0
-    if (curr_row, curr_col) == (start_position[0], start_position[1]):
-        start_position[2] = True
-
-    if direction == '-y' or direction == '0':
-        # check right
-        if curr_col:
-            if grid[curr_row][curr_col - 1]:
-                sum = 0
-                next_row = curr_row
-                next_col = curr_col - 1
-                direction = '-x'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if height > curr_row:  # check ahead
-            if grid[curr_row + 1][curr_col]:
-                sum = 1
-                next_row = curr_row + 1
+    while [curr_row, curr_col, True] != start_position:
+        if (next_row, next_col) == (start_position[0], start_position[1]):
+            start_position[2] = True
+        if direction == '-y' or direction == '0':
+            # check right
+            if curr_col:
+                if grid[curr_row][curr_col - 1]:
+                    sum += 0
+                    next_row = curr_row
+                    next_col = curr_col - 1
+                    direction = '-x'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if height > curr_row:  # check ahead
+                if grid[curr_row + 1][curr_col]:
+                    sum += 1
+                    next_row = curr_row + 1
+                    next_col = curr_col
+                    direction = '-y'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if width > curr_col:  # check left
+                if grid[curr_row][curr_col + 1]:
+                    sum += 2
+                    next_row = curr_row
+                    next_col = curr_col + 1
+                    direction = '+x'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            # u-turn
+            if curr_row:
+                if not grid[curr_row - 1][curr_col]:
+                    return 1
+                sum += 3
+                next_row = curr_row - 1
                 next_col = curr_col
-                direction = '-y'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if width > curr_col:  # check left
-            if grid[curr_row][curr_col + 1]:
-                sum = 2
-                next_row = curr_row
-                next_col = curr_col + 1
-                direction = '+x'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        # u-turn
-        if curr_row:
-            if not grid[curr_row - 1][curr_col]:
+                direction = '+y'
+                curr_row = next_row
+                curr_col = next_col
+                continue
+            else:
                 return 1
-            sum = 3
-            next_row = curr_row - 1
-            next_col = curr_col
-            direction = '+y'
-            return sum + check_walls(
-                grid, next_row, next_col,
-                height, width, direction,
-                start_position
-            )
-        else:
-            return 1
-    elif direction == '+x' or direction == '0':
-        # check right
-        if curr_row < height:
-            if grid[curr_row + 1][curr_col]:
-                sum = 0
-                next_row = curr_row + 1
-                next_col = curr_col
-                direction = '-y'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if width > curr_col:  # check ahead
-            if grid[curr_row][curr_col + 1]:
-                sum = 1
-                next_row = curr_row
-                next_col = curr_col + 1
-                direction = '+x'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if curr_row:  # check left
-            if grid[curr_row - 1][curr_col]:
-                sum = 2
-                next_row = curr_row - 1
-                next_col = curr_col
-                direction = '+y'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        # u-turn
-        if curr_col:
-            if not grid[curr_row][curr_col - 1]:
-                raise ValueError('prev wall must exist')
-            sum = 3
-            next_row = curr_row
-            next_col = curr_col - 1
-            direction = '-x'
-            return sum + check_walls(
-                grid, next_row, next_col,
-                height, width, direction,
-                start_position
-            )
-        else:
-            raise ValueError('curr_col has to be > 0')
-    elif direction == '+y' or direction == '0':
-        # check right
-        if width > curr_col:
-            if grid[curr_row][curr_col + 1]:
-                sum = 0
-                next_row = curr_row
-                next_col = curr_col + 1
-                direction = '+x'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if curr_row:  # check ahead
-            if grid[curr_row - 1][curr_col]:
-                sum = 1
-                next_row = curr_row - 1
-                next_col = curr_col
-                direction = '+y'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if curr_col:  # check left
-            if grid[curr_row][curr_col - 1]:
-                sum = 2
+        elif direction == '+x' or direction == '0':
+            # check right
+            if curr_row < height:
+                if grid[curr_row + 1][curr_col]:
+                    sum += 0
+                    next_row = curr_row + 1
+                    next_col = curr_col
+                    direction = '-y'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if width > curr_col:  # check ahead
+                if grid[curr_row][curr_col + 1]:
+                    sum += 1
+                    next_row = curr_row
+                    next_col = curr_col + 1
+                    direction = '+x'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if curr_row:  # check left
+                if grid[curr_row - 1][curr_col]:
+                    sum += 2
+                    next_row = curr_row - 1
+                    next_col = curr_col
+                    direction = '+y'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            # u-turn
+            if curr_col:
+                if not grid[curr_row][curr_col - 1]:
+                    raise ValueError('prev wall must exist')
+                sum += 3
                 next_row = curr_row
                 next_col = curr_col - 1
                 direction = '-x'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        # u-turn
-        if curr_row < height:
-            if not grid[curr_row + 1][curr_col]:
-                raise ValueError('Not possible to not have value climbing \
-                                    down after having climbed up')
-            sum = 3
-            next_row = curr_row + 1
-            next_col = curr_col
-            direction = '-y'
-            return sum + check_walls(
-                grid, next_row, next_col,
-                height, width, direction,
-                start_position
-            )
-        else:
-            raise ValueError('curr_row must be less than height')
-    elif direction == '-x' or direction == '0':
-        # check right
-        if curr_row:
-            if grid[curr_row - 1][curr_col]:
-                sum = 0
-                next_row = curr_row - 1
-                next_col = curr_col
-                direction = '+y'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if curr_col:  # check ahead
-            if grid[curr_row][curr_col - 1]:
-                sum = 1
-                next_row = curr_row
-                next_col = curr_col - 1
-                direction = '-x'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        if curr_row < height:  # check left
-            if grid[curr_row + 1][curr_col]:
-                sum = 2
+                curr_row = next_row
+                curr_col = next_col
+                continue
+            else:
+                raise ValueError('curr_col has to be > 0')
+        elif direction == '+y' or direction == '0':
+            # check right
+            if width > curr_col:
+                if grid[curr_row][curr_col + 1]:
+                    sum += 0
+                    next_row = curr_row
+                    next_col = curr_col + 1
+                    direction = '+x'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if curr_row:  # check ahead
+                if grid[curr_row - 1][curr_col]:
+                    sum += 1
+                    next_row = curr_row - 1
+                    next_col = curr_col
+                    direction = '+y'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if curr_col:  # check left
+                if grid[curr_row][curr_col - 1]:
+                    sum += 2
+                    next_row = curr_row
+                    next_col = curr_col - 1
+                    direction = '-x'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            # u-turn
+            if curr_row < height:
+                if not grid[curr_row + 1][curr_col]:
+                    raise ValueError('Not possible to not have value climbing \
+                                        down after having climbed up')
+                sum += 3
                 next_row = curr_row + 1
                 next_col = curr_col
                 direction = '-y'
-                return sum + check_walls(
-                    grid, next_row, next_col,
-                    height, width, direction,
-                    start_position
-                )
-        # u-turn
-        if curr_col < width:
-            if not grid[curr_row][curr_col + 1]:
-                raise ValueError('curr_col has to be less than width')
-            sum = 3
-            next_row = curr_row
-            next_col = curr_col + 1
-            return sum + check_walls(
-                grid, next_row, next_col,
-                height, width, direction,
-                start_position
-            )
-        else:
-            raise ValueError('curr_col has to be < width')
-    elif direction not in ['+x', '-x', '+y', '-y']:
-        raise ValueError('wrong direction')
+                curr_row = next_row
+                curr_col = next_col
+                continue
+            else:
+                raise ValueError('curr_row must be less than height')
+        elif direction == '-x' or direction == '0':
+            # check right
+            if curr_row:
+                if grid[curr_row - 1][curr_col]:
+                    sum += 0
+                    next_row = curr_row - 1
+                    next_col = curr_col
+                    direction = '+y'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if curr_col:  # check ahead
+                if grid[curr_row][curr_col - 1]:
+                    sum += 1
+                    next_row = curr_row
+                    next_col = curr_col - 1
+                    direction = '-x'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            if curr_row < height:  # check left
+                if grid[curr_row + 1][curr_col]:
+                    sum += 2
+                    next_row = curr_row + 1
+                    next_col = curr_col
+                    direction = '-y'
+                    curr_row = next_row
+                    curr_col = next_col
+                    continue
+            # u-turn
+            if curr_col < width:
+                if not grid[curr_row][curr_col + 1]:
+                    raise ValueError('curr_col has to be less than width')
+                sum += 3
+                next_row = curr_row
+                next_col = curr_col + 1
+                curr_row = next_row
+                curr_col = next_col
+                continue
+            else:
+                raise ValueError('curr_col has to be < width')
+        elif direction not in ['+x', '-x', '+y', '-y']:
+            raise ValueError('wrong direction')
 
-    raise ValueError('Could not walk along the walls :)')
+    return sum
 
 
 if __name__ == "__main__":
