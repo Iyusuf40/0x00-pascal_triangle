@@ -3,6 +3,21 @@
 
 island_prm = __import__("0-island_perimeter").island_perimeter
 import time
+import sys
+sys.setrecursionlimit(100000)
+
+def island_perimeter_cto(grid):
+    """Looks up and left to subtract water"""
+    perimeter = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[row])):
+            if grid[row][col] == 1:
+                perimeter += 4
+                if row and grid[row - 1][col] == 1:
+                    perimeter -= 2
+                if col and grid[row][col - 1] == 1:
+                    perimeter -= 2
+    return perimeter
 
 def island_perimeter_v(grid):
     """
@@ -121,11 +136,29 @@ def grid_print(grid):
 
 
 if __name__ == "__main__":
-    grid = create_island_sqaure_of_side_x(250)
+    grid = create_island_sqaure_of_side_x(3000)
     # grid_print(grid)
+    print()
     start = time.perf_counter()
-    print(island_prm(grid))
-    # print(island_perimeter_v(grid))
-    # print(island_perimeter(grid))
+    print(island_prm(grid), 'yusuf new')
     end = time.perf_counter() - start
     print(end)
+    print()
+
+    start = time.perf_counter()
+    print(island_perimeter(grid), 'yusuf former')
+    end = time.perf_counter() - start
+    print(end)
+    print()
+
+    start = time.perf_counter()
+    print(island_perimeter_v(grid), 'val former')
+    end = time.perf_counter() - start
+    print(end)
+    print()
+
+    start = time.perf_counter()
+    print(island_perimeter_cto(grid), 'CTO')
+    end = time.perf_counter() - start
+    print(end)
+    print()
