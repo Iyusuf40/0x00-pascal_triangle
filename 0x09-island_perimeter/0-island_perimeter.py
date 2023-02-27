@@ -35,6 +35,19 @@ def get_first_wall(grid, height, width):
     return None
 
 
+def get_first_square_prm(grid, start_row, start_col, width):
+    """ computes the perimeter of 1st square """
+    perimeter = 3
+    left = 0
+    if width > start_col:
+        left = grid[start_row][start_col + 1]
+
+    if left:
+        perimeter = 2
+
+    return perimeter
+
+
 def check_walls(grid, curr_row, curr_col, height, width, direction,
                 start_position):
     """ walks along walls and counts each square face """
@@ -249,19 +262,6 @@ def check_walls(grid, curr_row, curr_col, height, width, direction,
         raise ValueError('wrong direction')
 
     raise ValueError('Could not walk along the walls :)')
-
-
-def get_first_square_prm(grid, start_row, start_col, width):
-    """ computes the perimeter of 1st square """
-    perimeter = 3
-    left = 0
-    if width > start_col:
-        left = grid[start_row][start_col + 1]
-
-    if left:
-        perimeter = 2
-
-    return perimeter
 
 
 if __name__ == "__main__":
