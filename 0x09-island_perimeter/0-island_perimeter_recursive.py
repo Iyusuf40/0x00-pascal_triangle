@@ -77,7 +77,7 @@ def check_walls(grid, curr_row, curr_col, height, width, direction,
     """ walks along walls like a human would
     and counts each square face """
     sum = 0
-
+    # print(curr_row, curr_col, direction)
     if [curr_row, curr_col, True] == start_position:
         return 0
     if (curr_row, curr_col) == (start_position[0], start_position[1]):
@@ -276,6 +276,7 @@ def check_walls(grid, curr_row, curr_col, height, width, direction,
             sum = 3
             next_row = curr_row
             next_col = curr_col + 1
+            direction = '+x'
             return sum + check_walls(
                 grid, next_row, next_col,
                 height, width, direction,
@@ -409,3 +410,13 @@ if __name__ == "__main__":
     ]
     print(island_perimeter(grid))
     assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0],
+        [1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 1]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 20)
