@@ -246,6 +246,7 @@ def check_walls(grid, curr_row, curr_col, height, width, direction,
                 sum += 3
                 next_row = curr_row
                 next_col = curr_col + 1
+                direction = '+x'
                 curr_row = next_row
                 curr_col = next_col
                 continue
@@ -377,3 +378,59 @@ if __name__ == "__main__":
     ]
     print(island_perimeter(grid))
     assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0, 0, 1, 0, 0, 0],
+
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 4)
+
+    grid = [
+        [0],
+        [0],
+        [0]
+    ]
+    print(island_perimeter(grid))
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+    print(island_perimeter(grid))
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 1, 1, 1, 0, 0]
+    ]
+    print(island_perimeter(grid))
+
+    grid = [
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1]
+    ]
+    print(island_perimeter(grid))
+
+    grid = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0, 0],
+        [1, 1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 1, 1, 1]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 20)
+
+    grid = [
+        [0, 1, 0, 0, 0, 1],
+        [1, 1, 0, 0, 0, 1],
+        [1, 1, 0, 1, 1, 1],
+        [0, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 0, 0]
+    ]
+    print(island_perimeter(grid))
+    assert (island_perimeter(grid) == 28)
