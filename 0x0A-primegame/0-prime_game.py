@@ -23,7 +23,7 @@ def isWinner(x, nums):
 
 def getWinner(n):
     """ checks for prime """
-    if n < 3:
+    if n < 2:
         return 'b'
 
     lst = list(range(2, n + 1))
@@ -47,6 +47,8 @@ def is_prime(n):
     """ returns true if n is prime """
     if n == 1:
         return False
+    if n == 2:
+        return True
     if n % 2 == 0:
         return False
     start = 3
