@@ -7,6 +7,8 @@ def isWinner(x, nums):
     Maria = 0
     Ben = 0
 
+    if not x or not nums or x < 1:
+        return None
     for index in range(x):
         n = nums[index]
         winner = getWinner(n)
