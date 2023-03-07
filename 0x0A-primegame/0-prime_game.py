@@ -1,8 +1,13 @@
 #!/usr/bin/python3
-"""mod doc's"""
+"""Maria and Ben are playing a game. Given
+a set of consecutive integers starting from 1
+up to and including n, they take turns choosing
+a prime number from the set and removing that
+number and its multiples from the set.
+The player that cannot make a move loses the game
+"""
 
 cache = {'max': 3, 2: True, 3: True}
-results_cache = {}
 
 
 def cache_primes(n):
@@ -19,12 +24,6 @@ def isWinner(x, nums):
     """ determines  who wins """
     Maria = 0
     Ben = 0
-
-    if (
-        not x or not nums or type(x) is not int
-        or type(nums) is not list or x > len(nums)
-    ):
-        return None
 
     cache_primes(max(nums))
 
@@ -44,10 +43,6 @@ def isWinner(x, nums):
 
 def getWinner(n):
     """ checks for prime """
-
-    if results_cache.get(n):
-        return results_cache.get(n)
-
     if n < 2:
         return 'b'
 
@@ -56,13 +51,11 @@ def getWinner(n):
 
     player = True  # Maria is True while Ben is False
     for num in range(2, n + 1):
-        if cache.get(num):  # or is_prime(num):
+        if cache.get(num):
             player = not player
 
     if player:  # Maria's turn therefore she looses
-        results_cache[n] = 'b'
         return 'b'
-    results_cache[n] = 'm'
     return 'm'
 
 
@@ -77,18 +70,15 @@ def is_prime(n):
     if cache.get(n):
         return True
     if not cache.get(n) and n < cache['max']:
-        # print(n, '\nmiss\n')
         return False
 
     start = 3
     end = int(n ** 0.5) + 1
     while start < end:
         if n % start == 0:
-            cache[n] = False
             return False
         start += 2
     if n > cache['max']:
-        # print('max set:', n)
         cache['max'] = n
     cache[n] = True
     return True
