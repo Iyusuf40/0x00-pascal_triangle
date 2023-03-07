@@ -39,8 +39,8 @@ def getWinner(n):
             inner_position = current_position
             for to_remove in lst[current_position:]:
                 if to_remove and to_remove % num == 0:
-                    # lst[inner_position] = None
-                    lst.remove(to_remove)
+                    lst[inner_position] = None
+                    # lst.remove(to_remove)
                 inner_position += 1
             first_player = not first_player
         elif num:
@@ -63,12 +63,12 @@ def is_prime(n):
         return False
     if cache.get(n):
         return True
-    # if not cache.get(n) and cache and n < max(cache.keys()):
-    #     print(n, '\nmiss\n')
-    #     return False
-    if cache.get(n) is False:
+    if not cache.get(n) and cache and n < max(cache.keys()):
         # print(n, '\nmiss\n')
         return False
+    # if cache.get(n) is False:
+    #     # print(n, '\nmiss\n')
+    #     return False
     start = 3
     while start < (n ** 0.5) + 1:
         if n % start == 0:
