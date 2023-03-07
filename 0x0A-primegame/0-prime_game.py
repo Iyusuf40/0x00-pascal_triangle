@@ -12,6 +12,7 @@ def cache_primes(n):
     for x in range(cache['max'], n + 1):
         if is_prime(x):
             cache[x] = True
+            cache['max'] = x
 
 
 def isWinner(x, nums):
@@ -24,6 +25,9 @@ def isWinner(x, nums):
         or type(nums) is not list or x > len(nums)
     ):
         return None
+
+    cache_primes(max(nums))
+
     for index in range(x):
         n = nums[index]
         winner = getWinner(n)
@@ -52,7 +56,7 @@ def getWinner(n):
 
     player = True  # Maria is True while Ben is False
     for num in range(2, n + 1):
-        if cache.get(num) or is_prime(num):
+        if cache.get(num):  # or is_prime(num):
             player = not player
 
     if player:  # Maria's turn therefore she looses
