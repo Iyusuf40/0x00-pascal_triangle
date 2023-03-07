@@ -37,7 +37,7 @@ def isWinner(x, nums):
 def getWinner(n):
     """ checks for prime """
 
-    if results_cache and results_cache.get(n):
+    if results_cache.get(n):
         return results_cache.get(n)
 
     if n < 2:
@@ -50,15 +50,8 @@ def getWinner(n):
     first_player = True  # Maria is True while Ben is False
     current_position = 0
     for num in lst:
-        if num and (cache.get(num) or is_prime(num)):
-            # inner_position = current_position
-            # for to_remove in lst[current_position:]:
-            #     if to_remove and to_remove % num == 0:
-            #         lst[inner_position] = None
-            #     inner_position += 1
+        if cache.get(num) or is_prime(num):
             first_player = not first_player
-        elif num:
-            cache[num] = False
         current_position += 1
 
     if first_player:  # Maria's turn therefore she looses
@@ -70,21 +63,21 @@ def getWinner(n):
 
 def is_prime(n):
     """ returns true if n is prime """
-    if n <= 1:
+    if n < 2:
         return False
     if n == 2:
         return True
     if n % 2 == 0:
         return False
     if cache.get(n):
-        print('hit')
         return True
     if not cache.get(n) and n < cache['max']:
         # print(n, '\nmiss\n')
         return False
 
     start = 3
-    while start < (n ** 0.5) + 1:
+    end = int(n ** 0.5) + 1
+    while start < end:
         if n % start == 0:
             cache[n] = False
             return False
