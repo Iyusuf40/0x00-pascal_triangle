@@ -17,8 +17,8 @@ def isWinner(x, nums):
     """ determines  who wins """
     Maria = 0
     Ben = 0
-    max_ = max(nums) if nums else 0
-    cache_primes(max_)
+    # max_ = max(nums) if nums else 0
+    # cache_primes(max_)
     for index in range(x):
         n = nums[index]
         winner = getWinner(n)
