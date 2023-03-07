@@ -37,12 +37,15 @@ def getWinner(n):
     current_position = 0
     for num in lst:
         if num and is_prime(num):
+            cache[num] = True
             inner_position = current_position
             for to_remove in lst[current_position:]:
                 if to_remove and to_remove % num == 0:
                     lst[inner_position] = None
                 inner_position += 1
             first_player = not first_player
+        else:
+            cache[num] = False
         current_position += 1
     if first_player:  # Maria's turn therefore she looses
         return 'b'
@@ -59,6 +62,8 @@ def is_prime(n):
         return False
     if cache.get(n):
         return True
+    if cache.get(n) is False:
+        return False
     start = 3
     while start < (n ** 0.5) + 1:
         if n % start == 0:
