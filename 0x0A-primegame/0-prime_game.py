@@ -18,8 +18,9 @@ def isWinner(x, nums):
     """ determines  who wins """
     Maria = 0
     Ben = 0
-    # max_ = max(nums) if nums else 0
-    # cache_primes(max_)
+
+    if not x or not nums or x > len(nums):
+        return None
     for index in range(x):
         n = nums[index]
         winner = getWinner(n)
@@ -48,11 +49,9 @@ def getWinner(n):
 
     lst = list(range(2, n + 1))
     first_player = True  # Maria is True while Ben is False
-    current_position = 0
     for num in lst:
         if cache.get(num) or is_prime(num):
             first_player = not first_player
-        current_position += 1
 
     if first_player:  # Maria's turn therefore she looses
         results_cache[n] = 'b'
