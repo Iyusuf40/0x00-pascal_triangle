@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """mod doc's"""
 
+cache = {}
+
 
 def isWinner(x, nums):
     """ determines  who wins """
     Maria = 0
     Ben = 0
 
-    if not x or not nums or x < 1:
-        return None
     for index in range(x):
         n = nums[index]
         winner = getWinner(n)
@@ -26,8 +26,6 @@ def isWinner(x, nums):
 def getWinner(n):
     """ checks for prime """
 
-    if n < 1:
-        return None
     if n < 2:
         return 'b'
 
@@ -53,15 +51,18 @@ def getWinner(n):
 
 def is_prime(n):
     """ returns true if n is prime """
-    if n == 1:
+    if n <= 1:
         return False
     if n == 2:
         return True
     if n % 2 == 0:
         return False
+    if cache.get(n):
+        return True
     start = 3
     while start < (n ** 0.5) + 1:
         if n % start == 0:
             return False
         start += 2
+    cache[n] = True
     return True
