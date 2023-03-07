@@ -1,68 +1,56 @@
 #!/usr/bin/python3
-"""mod doc's"""
 
-cache = {}
-
-
-def isWinner(x, nums):
-    """ determines  who wins """
-    Maria = 0
-    Ben = 0
-
-    for index in range(x):
-        n = nums[index]
-        winner = getWinner(n)
-        if winner == 'm':
-            Maria += 1
-        elif winner == 'b':
-            Ben += 1
-    if Ben > Maria:
-        return 'Ben'
-    elif Maria > Ben:
-        return 'Maria'
-    return None
-
-
-def getWinner(n):
-    """ checks for prime """
-
-    if n < 2:
-        return 'b'
-
-    if n == 2:
-        return 'm'
-
-    lst = list(range(2, n + 1))
-    first_player = True  # Maria is True while Ben is False
-    current_position = 0
-    for num in lst:
-        if num and is_prime(num):
-            inner_position = current_position
-            for to_remove in lst[current_position:]:
-                if to_remove and to_remove % num == 0:
-                    lst[inner_position] = None
-                inner_position += 1
-            first_player = not first_player
-        current_position += 1
-    if first_player:  # Maria's turn therefore she looses
-        return 'b'
-    return 'm'
+""" Prime Game Algorithm Python """
 
 
 def is_prime(n):
-    """ returns true if n is prime """
-    if n <= 1:
-        return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-    if cache.get(n):
-        return True
-    start = 3
-    while start < (n ** 0.5) + 1:
-        if n % start == 0:
+    """ Checks if a number given n is a prime number """
+    for i in range(2, int(n ** 0.5) + 1):
+        if not n % i:
             return False
-        start += 2
-    cache[n] = True
     return True
+
+
+def calculate_primes(n, primes):
+    """ Calculate all primes """
+    top_prime = primes[-1]
+    if n > top_prime:
+        for i in range(top_prime + 1, n + 1):
+            if is_prime(i):
+                primes.append(i)
+            else:
+                primes.append(0)
+
+
+def isWinner(x, nums):
+    """
+    x is the number of rounds and nums is an array of n
+    Return: name of the player that won the most rounds
+    If the winner cannot be determined, return None
+    You can assume n and x will not be larger than 10000
+    """
+
+    players_wins = {"Maria": 0, "Ben": 0}
+
+    primes = [0, 0, 2]
+
+    calculate_primes(max(nums), primes)
+
+    for round in range(x):
+        sum_options = sum((i != 0 and i <= nums[round])
+                          for i in primes[:nums[round] + 1])
+
+        if (sum_options % 2):
+            winner = "Maria"
+        else:
+            winner = "Ben"
+
+        if winner:
+            players_wins[winner] += 1
+
+    if players_wins["Maria"] > players_wins["Ben"]:
+        return "Maria"
+    elif players_wins["Ben"] > players_wins["Maria"]:
+        return "Ben"
+
+    return None
