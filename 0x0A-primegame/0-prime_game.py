@@ -2,6 +2,7 @@
 """mod doc's"""
 
 cache = {'max': 3, 2: True, 3: True}
+results_cache = {}
 
 
 def cache_primes(n):
@@ -36,6 +37,9 @@ def isWinner(x, nums):
 def getWinner(n):
     """ checks for prime """
 
+    if results_cache and results_cache.get(n):
+        return results_cache.get(n)
+
     if n < 2:
         return 'b'
 
@@ -58,7 +62,9 @@ def getWinner(n):
         current_position += 1
 
     if first_player:  # Maria's turn therefore she looses
+        results_cache[n] = 'b'
         return 'b'
+    results_cache[n] = 'm'
     return 'm'
 
 
