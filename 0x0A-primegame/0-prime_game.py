@@ -31,6 +31,9 @@ def getWinner(n):
     if n < 2:
         return 'b'
 
+    if n == 2:
+        return 'm'
+
     lst = list(range(2, n + 1))
     first_player = True  # Maria is True while Ben is False
     current_position = 0
