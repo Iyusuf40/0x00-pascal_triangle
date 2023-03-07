@@ -47,9 +47,9 @@ def getWinner(n):
     if n == 2:
         return 'm'
 
-    lst = list(range(2, n + 1))
+    # lst = list(range(2, n + 1))
     first_player = True  # Maria is True while Ben is False
-    for num in lst:
+    for num in range(2, n + 1):
         if cache.get(num) or is_prime(num):
             first_player = not first_player
 
