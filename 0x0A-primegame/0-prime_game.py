@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """mod doc's"""
 
-cache = {}
+cache = {'max': 0, 2: True, 3: True}
 
 
 def cache_primes(n):
     """ creates a cache of primes """
-    if cache and n < max(cache.keys()):
+    if n < cache['max']:
+        # print('no build', n, cache)
         return
     for x in range(2, n + 1):
         if is_prime(x):
@@ -17,8 +18,8 @@ def isWinner(x, nums):
     """ determines  who wins """
     Maria = 0
     Ben = 0
-    # max_ = max(nums) if nums else 0
-    # cache_primes(max_)
+    max_ = max(nums) if nums else 0
+    cache_primes(max_)
     for index in range(x):
         n = nums[index]
         winner = getWinner(n)
@@ -48,16 +49,15 @@ def getWinner(n):
     for num in lst:
         if num and (cache.get(num) or is_prime(num)):
             inner_position = current_position
-            for to_remove in lst[current_position:]:
-                if to_remove and to_remove % num == 0:
-                    lst[inner_position] = None
-                inner_position += 1
+            # for to_remove in lst[current_position:]:
+            #     if to_remove and to_remove % num == 0:
+            #         lst[inner_position] = None
+            #     inner_position += 1
             first_player = not first_player
         elif num:
             cache[num] = False
         current_position += 1
-    # print(n, lst)
-    # print(cache)
+
     if first_player:  # Maria's turn therefore she looses
         return 'b'
     return 'm'
@@ -72,18 +72,19 @@ def is_prime(n):
     if n % 2 == 0:
         return False
     if cache.get(n):
+        # print('hit')
         return True
-    if not cache.get(n) and cache and n < max(cache.keys()):
+    if not cache.get(n) and n < cache['max']:
         # print(n, '\nmiss\n')
         return False
-    # if cache.get(n) is False:
-    #     # print(n, '\nmiss\n')
-    #     return False
+
     start = 3
     while start < (n ** 0.5) + 1:
         if n % start == 0:
             cache[n] = False
             return False
         start += 2
+    if n > cache['max']:
+        cache['max'] = n
     cache[n] = True
     return True
