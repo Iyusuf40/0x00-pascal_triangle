@@ -19,7 +19,10 @@ def isWinner(x, nums):
     Maria = 0
     Ben = 0
 
-    if not x or not nums or x > len(nums):
+    if (
+        not x or not nums or type(x) is not int
+        or type(nums) is not list or x > len(nums)
+    ):
         return None
     for index in range(x):
         n = nums[index]
@@ -47,13 +50,12 @@ def getWinner(n):
     if n == 2:
         return 'm'
 
-    # lst = list(range(2, n + 1))
-    first_player = True  # Maria is True while Ben is False
+    player = True  # Maria is True while Ben is False
     for num in range(2, n + 1):
         if cache.get(num) or is_prime(num):
-            first_player = not first_player
+            player = not player
 
-    if first_player:  # Maria's turn therefore she looses
+    if player:  # Maria's turn therefore she looses
         results_cache[n] = 'b'
         return 'b'
     results_cache[n] = 'm'
