@@ -26,7 +26,7 @@ def isWinner(x, nums):
 def getWinner(n):
     """ checks for prime """
 
-    if n < 1 or typeof(n) is not int:
+    if n < 1:
         return None
     if n < 2:
         return 'b'
