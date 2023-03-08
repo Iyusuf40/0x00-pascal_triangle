@@ -65,7 +65,7 @@ def getWinner(n):
     # prime no's already cached anyway
     # so loop over the prime no's and count how many are there
     # between 1 and n
-    for prime in sorted(cache['primes'].keys()):
+    for prime in cache['primes'].keys():
         if n >= prime:
             primes_count += 1
         else:
