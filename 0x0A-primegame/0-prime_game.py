@@ -7,17 +7,23 @@ number and its multiples from the set.
 The player that cannot make a move loses the game
 """
 
-cache = {'max': 3, 2: True, 3: True}
+cache = {'checked': 3, 'primes': {2: True, 3: True}}
 
 
 def cache_primes(n):
-    """ creates a cache of primes """
-    if n <= cache['max']:
+    """ creates a cache of all primes required
+    n is maximum value of all values to check for
+    each round, which means if we get all the primes
+    betwwen 1 and n, we won't need to calculate any
+    prime again
+    """
+    if n <= cache['checked']:
         return
-    for x in range(cache['max'], n + 1):
+
+    for x in range(cache['checked'], n + 1):
         if is_prime(x):
-            cache[x] = True
-            cache['max'] = x
+            cache['primes'][x] = True
+            cache['checked'] = n
 
 
 def isWinner(x, nums):
@@ -49,14 +55,21 @@ def getWinner(n):
     if n == 2:
         return 'm'
 
-    player = True  # Maria is True while Ben is False
-    for num in range(2, n + 1):
-        if cache.get(num):
-            player = not player
+    primes_count = 0
+    # Since we have all prime no's we need cached
+    # no need looping over n since we will be checking for the
+    # prime no's already cached anyway
+    # so loop over the prime no's and count how many are there
+    # between 1 and n
+    for prime in sorted(cache['primes'].keys()):
+        if n >= prime:
+            primes_count += 1
+        else:
+            break
 
-    if player:  # Maria's turn therefore she looses
-        return 'b'
-    return 'm'
+    if primes_count % 2 == 0:  # Maria's turn therefore she looses
+        return 'b'             # since if turn is even it is Maria'a
+    return 'm'                 # else it is Ben's so Ben looses
 
 
 def is_prime(n):
@@ -67,18 +80,15 @@ def is_prime(n):
         return True
     if n % 2 == 0:
         return False
-    if cache.get(n):
-        return True
-    if not cache.get(n) and n < cache['max']:
-        return False
 
     start = 3
+
     end = int(n ** 0.5) + 1
     while start < end:
         if n % start == 0:
             return False
         start += 2
-    if n > cache['max']:
-        cache['max'] = n
-    cache[n] = True
+    if n > cache['checked']:  # update checked
+        cache['checked'] = n
+    cache['primes'][n] = True
     return True
