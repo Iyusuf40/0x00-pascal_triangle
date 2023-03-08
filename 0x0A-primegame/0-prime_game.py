@@ -8,6 +8,7 @@ The player that cannot make a move loses the game
 """
 
 cache = {'checked': 3, 'primes': {2: True, 3: True}}
+res_cache = {}
 
 
 def cache_primes(n):
@@ -55,6 +56,9 @@ def getWinner(n):
     if n == 2:
         return 'm'
 
+    if res_cache.get(n):
+        return res_cache.get(n)
+
     primes_count = 0
     # Since we have all prime no's we need cached
     # no need looping over n since we will be checking for the
@@ -68,7 +72,9 @@ def getWinner(n):
             break
 
     if primes_count % 2 == 0:  # Maria's turn therefore she looses
+        res_cache[n] = 'b'
         return 'b'             # since if turn is even it is Maria'a
+    res_cache[n] = 'm'
     return 'm'                 # else it is Ben's so Ben looses
 
 
